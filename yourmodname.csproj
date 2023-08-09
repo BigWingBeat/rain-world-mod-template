@@ -5,6 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AssemblyName>yourname.yourmodname</AssemblyName> <!-- Plugin GUID -->
     <Product>Your Mod Name</Product> <!-- Plugin Name -->
     <ModFolderName>yourmodname</ModFolderName>
@@ -20,14 +23,19 @@
     <PackageReference Include="UnityEngine.Modules" Version="2020.3.38" IncludeAssets="compile" /> <!-- The version of Unity shipped with Rain World -->
   </ItemGroup>
 
-  <Target Name="OrganizeFiles" AfterTargets="Build">
-    <MakeDir Directories="$(OutputPath)$(ModFolderName)/plugins" />
-    <Copy SourceFiles="modinfo.json;thumbnail.png" DestinationFolder="$(OutputPath)$(ModFolderName)" />
-    <Move SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)$(ModFolderName)/plugins" />
+  <ItemGroup>
+    <ModRootFiles Include="modinfo.json" />
+    <ModRootFiles Include="thumbnail.png" />
+    <ModPluginFiles Include="$(OutputPath)$(AssemblyName).dll" />
+  </ItemGroup>
+
+  <Target Name="BuildModFolder" AfterTargets="Build">
+    <Copy SourceFiles="@(ModRootFiles)" DestinationFolder="build/$(ModFolderName)" />
+    <Copy SourceFiles="@(ModPluginFiles)" DestinationFolder="build/$(ModFolderName)/plugins" />
   </Target>
 
-  <Target Name="RemoveOrganisedFiles" AfterTargets="Clean">
-    <RemoveDir Directories="$(OutputPath)$(ModFolderName)" />
+  <Target Name="CleanModFolder" AfterTargets="Clean">
+    <RemoveDir Directories="build" />
   </Target>
 
 </Project>
