@@ -24,13 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ModRootFiles Include="modinfo.json" />
-    <ModRootFiles Include="thumbnail.png" />
+    <ModAssetFiles Include="assets/**/*.*" />
     <ModPluginFiles Include="$(OutputPath)$(AssemblyName).dll" />
   </ItemGroup>
 
   <Target Name="BuildModFolder" AfterTargets="Build">
-    <Copy SourceFiles="@(ModRootFiles)" DestinationFolder="build/$(ModFolderName)" />
+    <Copy SourceFiles="@(ModAssetFiles)" DestinationFolder="build/$(ModFolderName)/%(RecursiveDir)" />
     <Copy SourceFiles="@(ModPluginFiles)" DestinationFolder="build/$(ModFolderName)/plugins" />
   </Target>
 
