@@ -15,12 +15,12 @@ This is a template for [BepInEx](https://github.com/BepInEx/BepInEx)-powered mod
         - Rename this file
         - Rename the `yourmodname` namespace
         - Rename the `YourModName` class
-    - `modinfo.json`
+    - `assets/modinfo.json`
         - Change the `id` value - this should be the same as your mod's GUID
         - Change the `name` value - this should be the same as your mod's display name
         - Change the `authors` value - this should be your own name
         - Change the `description` value
-    - `thumbnail.png`
+    - `assets/thumbnail.png`
         - Replace this with a suitable thumbnail for your mod
 3. Mod away!
 
