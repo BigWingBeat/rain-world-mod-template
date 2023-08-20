@@ -10,11 +10,11 @@ This is a template for [BepInEx](https://github.com/BepInEx/BepInEx)-powered mod
         - Rename this file
         - Change the `AssemblyName` property - this value is used for your mod's [GUID](https://rainworldmodding.miraheze.org/wiki/BepInPlugins#Step_2.3_-_Setting_up_the_mod's_information)
         - Change the `Product` property - this value is used for your mod's display name
-        - Change  the `ModFolderName` property
+        - Change the `ModFolderName` property
     - `YourModName.cs`
         - Rename this file
-        - Rename the `yourmodname` namespace
-        - Rename the `YourModName` class
+        - Rename the `YourModName` namespace
+        - Rename the `YourModNamePlugin` class
     - `assets/modinfo.json`
         - Change the `id` value - this should be the same as your mod's GUID
         - Change the `name` value - this should be the same as your mod's display name
