@@ -27,8 +27,8 @@ This is a template for [BepInEx](https://github.com/BepInEx/BepInEx)-powered mod
 ### Running the mod
 
 In order to run the mod, you need to follow a couple of simple steps:
-1. Compile the mod by running `dotnet build`. This will create the `build` folder, and another folder inside it, which will be named according to the `ModFolderName` property in the `yourmodname.csproj` file.
-2. Navigate to whereever you have Rain World installed, then copy or move the aforementioned `ModFolderName` folder into the `RainWorld_Data/StreamingAssets/mods` folder.
+1. Compile the mod by running `dotnet build`. This will create the `build` folder, and inside it will be your mod folder, named according to the `ModFolderName` property in the `yourmodname.csproj` file.
+2. Navigate to your Rain World installation, then copy or move the mod folder into the `RainWorld_Data/StreamingAssets/mods` folder.
 3. Launch the game, and enable your mod from the remix menu.
 
-Tip: Running `dotnet build` compiles your mod with the 'Debug' configuration, which generates extra debug information and disables optimisations. This can be helpful for development, but if your mod is having performance issues, or you want to share it with other people, you should compile it in the 'Release' configuration instead, by running `dotnet build -c Release`.
+Tip: Running `dotnet build` compiles your mod with the 'Debug' configuration, which generates extra debug information and disables optimisations. This can be helpful during development, but if your mod is having performance issues, or you want to share it with other people, you should compile it in the 'Release' configuration instead, by running `dotnet build -c Release`.
