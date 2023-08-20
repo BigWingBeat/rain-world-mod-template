@@ -17,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="HOOKS-Assembly-CSharp" HintPath="references/HOOKS-Assembly-CSharp.dll" />
-    <Reference Include="PUBLIC-Assembly-CSharp" HintPath="references/PUBLIC-Assembly-CSharp.dll" />
+    <Reference Include="HOOKS-Assembly-CSharp" HintPath="lib/HOOKS-Assembly-CSharp.dll" />
+    <Reference Include="PUBLIC-Assembly-CSharp" HintPath="lib/PUBLIC-Assembly-CSharp.dll" />
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.4.17" /> <!-- The version of BepInEx shipped with Rain World -->
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
