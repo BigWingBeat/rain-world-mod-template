@@ -1,5 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
+  <!-- Sdk properties and targets are imported manually to make the ____DependsOn properties work -->
+  <!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk#use-the-import-element-anywhere-in-your-project -->
+  <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
 
+  <!-- On OutDir vs OutputPath: https://github.com/dotnet/msbuild/blob/0a0959f86064b7922731df2978b051a744e75072/src/Tasks/Microsoft.Common.CurrentVersion.targets#L103-L133 -->
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -12,7 +16,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <ModFolderName>yourmodname</ModFolderName>
+    <ModBuildFolder>mod/yourmodname</ModBuildFolder>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,15 +29,33 @@
 
   <ItemGroup>
     <ModAssetFiles Include="assets/**/*" />
+    <ModPluginFiles Include="$(TargetPath)" />
   </ItemGroup>
 
-  <Target Name="BuildModFolder" AfterTargets="Build" DependsOnTargets="CleanModFolder">
-    <Copy SourceFiles="@(ModAssetFiles)" DestinationFolder="build/$(ModFolderName)/%(RecursiveDir)" />
-    <Copy SourceFiles="$(TargetPath)" DestinationFolder="build/$(ModFolderName)/plugins" />
+  <!--
+    The files must be written under $(OutDir) for incremental cleaning to work, as files outside that directory get ignored by the clean: https://github.com/dotnet/msbuild/blob/0a0959f86064b7922731df2978b051a744e75072/src/Tasks/Microsoft.Common.CurrentVersion.targets#L5580-L5602
+    To understand Inputs, Outputs and FileWrites, read https://github.com/xamarin/xamarin-android/blob/main/Documentation/guides/MSBuildBestPractices.md#incremental-builds
+  -->
+  <Target Name="BuildModFolder"
+      Inputs="@(ModAssetFiles);@(ModPluginFiles)"
+      Outputs="@(ModAssetFiles->'$(OutDir)$(ModBuildFolder)/%(RecursiveDir)%(Filename)%(Extension)');@(ModPluginFiles->'$(OutDir)$(ModBuildFolder)/plugins/%(Filename)%(Extension)')">
+    <Copy SourceFiles="@(ModAssetFiles)" DestinationFolder="$(OutDir)$(ModBuildFolder)/%(RecursiveDir)" />
+    <Copy SourceFiles="@(ModPluginFiles)" DestinationFolder="$(OutDir)$(ModBuildFolder)/plugins" />
+    <ItemGroup>
+      <FileWrites Include="@(ModAssetFiles->'$(OutDir)$(ModBuildFolder)/%(RecursiveDir)%(Filename)%(Extension)');@(ModPluginFiles->'$(OutDir)$(ModBuildFolder)/plugins/%(Filename)%(Extension)')" />
+    </ItemGroup>
   </Target>
 
-  <Target Name="CleanModFolder" AfterTargets="Clean">
-    <RemoveDir Directories="build" />
-  </Target>
+  <!-- The ____DependsOn properties only work when defined after importing the Sdk targets -->
+  <!-- https://learn.microsoft.com/en-us/visualstudio/msbuild/how-to-extend-the-visual-studio-build-process#override-dependson-properties -->
+  <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+  <PropertyGroup>
+    <!-- https://github.com/dotnet/msbuild/pull/5499 -->
+    <IncrementalCleanDependsOn>
+      BuildModFolder;
+      $(IncrementalCleanDependsOn)
+    </IncrementalCleanDependsOn>
+  </PropertyGroup>
 
 </Project>
