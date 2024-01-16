@@ -7,12 +7,12 @@ using BepInEx;
 
 namespace YourModName
 {
-	[BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
+	[BepInPlugin(PLUGIN_GUID, PLUGIN_NAME, PLUGIN_VERSION)]
 	public class YourModNamePlugin : BaseUnityPlugin
 	{
-		public const string PLUGIN_GUID = MyPluginInfo.PLUGIN_GUID;
-		public const string PLUGIN_NAME = MyPluginInfo.PLUGIN_NAME;
-		public const string PLUGIN_VERSION = MyPluginInfo.PLUGIN_VERSION;
+		public const string PLUGIN_GUID = "yourname.yourmodname";
+		public const string PLUGIN_NAME = "Your Mod Name";
+		public const string PLUGIN_VERSION = "0.1.0";
 
 		private void Awake()
 		{

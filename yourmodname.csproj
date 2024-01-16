@@ -12,10 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>yourname.yourmodname</AssemblyName> <!-- Plugin GUID -->
-    <Product>Your Mod Name</Product> <!-- Plugin Name -->
     <ModFolderName>yourmodname</ModFolderName>
-    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,7 +20,6 @@
     <Reference Include="PUBLIC-Assembly-CSharp" HintPath="lib/PUBLIC-Assembly-CSharp.dll" />
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.4.17" /> <!-- The version of BepInEx shipped with Rain World -->
-    <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
     <PackageReference Include="UnityEngine.Modules" Version="2020.3.38" IncludeAssets="compile" /> <!-- The version of Unity shipped with Rain World -->
   </ItemGroup>
 
